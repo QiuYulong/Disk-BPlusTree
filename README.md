@@ -6,5 +6,4 @@ original code is based on POSIX OS (like linux), I have revised the system call 
 
 bug fix:
 1: revise system call to Windows platform.
-
 2: 'BTreeIndex.cc':'setTreeHeight', address offset bug, which leads to wrong tree height setting.
