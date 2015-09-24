@@ -1,12 +1,3 @@
-/*
- * Copyright (C) 2014 by The Regents of the Floridar International University
- * Redistribution of this file is permitted under the terms of the GNU
- * Public License (GPL).
- *
- * @author Wei Liu <wliu015@cs.fiu.edu>
- * @date 5/12/2014
- */
-
 #ifndef BTREEINDEX_H
 #define BTREEINDEX_H
 
