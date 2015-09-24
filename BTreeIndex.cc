@@ -1,3 +1,12 @@
+/*
+ * Copyright (C) 2014 by The Regents of the Floridar International University
+ * Redistribution of this file is permitted under the terms of the GNU
+ * Public License (GPL).
+ *
+ * @author Wei Liu <wliu015@cs.fiu.edu>
+ * @date 5/12/2014
+ */
+ 
 #include "BTreeIndex.h"
 #include <queue>
 #include <string.h>
@@ -240,6 +249,30 @@ RC BTreeIndex::readForward(IndexCursor& cursor, KeyType& key, RecordId& rid) con
 ERROR:
     printf("readForward error\n");
     return rc;
+}
+
+KeyType BTreeIndex::getMinimumKey()
+{
+	BTNode btnode;
+	btnode.read(rootPid, pf);
+	while(!btnode.isLeaf)
+	{
+		PageId pid = btnode.pids[0];
+		btnode.read(pid, pf);
+	}
+	return btnode.keys[0];
+}
+
+KeyType BTreeIndex::getMaximumKey()
+{
+	BTNode btnode;
+	btnode.read(rootPid, pf);
+	while(!btnode.isLeaf)
+	{
+		PageId pid = btnode.pids[btnode.n];
+		btnode.read(pid, pf);
+	}
+	return btnode.keys[btnode.n-1];
 }
 
 RC BTreeIndex::printTree()

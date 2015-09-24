@@ -1,3 +1,12 @@
+/*
+ * Copyright (C) 2014 by The Regents of the Floridar International University
+ * Redistribution of this file is permitted under the terms of the GNU
+ * Public License (GPL).
+ *
+ * @author Wei Liu <wliu015@cs.fiu.edu>
+ * @date 5/12/2014
+ */
+
 #ifndef BTREEINDEX_H
 #define BTREEINDEX_H
 
@@ -68,6 +77,17 @@ class BTreeIndex {
    */
   RC readForward(IndexCursor& cursor, KeyType& key, RecordId& rid) const;
   
+
+  /**
+  *get the value of the minimum key, it is the first key in the left most leafNode.
+  *Design: read the value from disk each time when function is called, to avoid updating when INSERT/DELETE. Here I assume that this function will not be called frequently. 
+  */
+  KeyType getMinimumKey();
+  /**
+  *get the value of the maximum key, it is the last key in the right most leafNode.
+  */
+  KeyType getMaximumKey();
+
   int newPid;
   RC printTree();
  private:
@@ -77,7 +97,8 @@ class BTreeIndex {
   PageId   rootPid;    /// the PageId of the root node
   int      treeHeight; /// the height of the tree
   int      pageNum;
-  PageId   nextPid; 
+  PageId   nextPid;
+
   /// Note that the content of the above two variables will be gone when
   /// this class is destructed. Make sure to store the values of the two 
   /// variables in disk, so that they can be reconstructed when the index

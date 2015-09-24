@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
 	btreeindex.open("test.idx",'r');
 
 	
+	
 	/**IndexCursor cursor;
 	tree.locate(0,cursor);
 	for(int i=0;i<10000;i++)
@@ -27,6 +28,9 @@ int main(int argc, char* argv[])
 		tree.readForward(cursor, kt, ri);
 		cout<<"KeyType:"<<kt<<"    Record.Pid:"<<ri.pid<<"    Record.Sid:"<<ri.sid<<endl;
 	}*/
+
+	int minkey = btreeindex.getMinimumKey();
+	int maxkey = btreeindex.getMaximumKey();
 
 	btreeindex.close();
 	system("pause");
