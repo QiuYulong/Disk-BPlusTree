@@ -93,7 +93,7 @@ public:
     * @param rid[OUT] the RecordId from the slot
     * @return 0 if successful. Return an error code if there is an error.
     */
-    RC readEntry(int eid, int& key, RecordId& rid);
+    RC readEntry(int eid, KeyType& key, RecordId& rid);
 
    /**
     * Return the pid of the next slibling node.
