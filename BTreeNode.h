@@ -84,7 +84,7 @@ public:
      *                    with the key value. Return cursor.pid = -1 if not found.
      * @return 0 if successful. Return an error code if there is an error.
      */
-    RC locate(int searchKey, const PageFile &pf,  IndexCursor& cursor);
+    RC locate(KeyType searchKey, const PageFile &pf,  IndexCursor& cursor);
 
    /**
     * Read the (key, rid) pair from the eid entry.
