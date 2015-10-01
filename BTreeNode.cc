@@ -239,7 +239,7 @@ int BTNode::getT()
  *                    with the key value. Return cursor.pid = -1 if not found.
  * @return 0 if successful. Return an error code if there is an error.
  */
-RC BTNode::locate(int searchKey, const PageFile &pf,  IndexCursor& cursor)
+RC BTNode::locate(KeyType searchKey, const PageFile &pf,  IndexCursor& cursor)
 {
     int i = 0;
     RC rc = 0;
