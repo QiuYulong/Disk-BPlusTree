@@ -276,7 +276,7 @@ ERROR:
  * @param rid[OUT] the RecordId from the entry
  * @return 0 if successful. Return an error code if there is an error.
  */
-RC BTNode::readEntry(int eid, int& key, RecordId& rid)
+RC BTNode::readEntry(int eid, KeyType& key, RecordId& rid)
 {
     RC rc;
     if(!isLeaf || eid > n || eid <0){
