@@ -7,33 +7,63 @@ using namespace std;
 
 #include "BTreeIndex.h"
 
+void GenerateBPlusTreeFromFile(int argc, char* argv[]);
 void GenerateBPlusTree(int argc, char* argv[]);
 
 int main(int argc, char* argv[])
 {	
 	//DebugInit("+");//enable all debug information
 
-	//GenerateBPlusTree(argc, argv);
+	GenerateBPlusTreeFromFile(argc, argv);
+		
+	system("pause");
+}
+
+void GenerateBPlusTreeFromFile(int argc, char* argv[])
+{
+	cout<<"argv: string:datafileName\n";
+	string fileName(argv[1]);
+	cout<<"loading data from file...\n";
+	ifstream file(fileName, ios::in);
+
+	RecordFile recordFile;
+	recordFile.open(fileName+".tbl",'w');
+	BTreeIndex btreeindex;
+	btreeindex.open(fileName+".idx",'w');
+
+	KeyType key;
+	string value;
+	RecordId rid;
+	
+	//create B+ tree from data file
+	string line;
+	if(!file){
+		cout<<"File open failed.\n";
+		return;
+	}
+		
+	while(getline(file, line)){
+		if(line.compare("")==0)
+			break;
+		key = atof(line.c_str());	
+		value = line;
+		recordFile.append(key, value, rid);
+		btreeindex.insert(key, rid);
+	}
+
+	btreeindex.close();
+	recordFile.close();
+	file.close();
+	cout<<"Done.\nTest index file...";
 
 	//search
 	BTreeIndex btreeindex;
-	btreeindex.open("test.idx",'r');
-
+	btreeindex.open(fileName+".idx",'r');
 	
-	
-	/**IndexCursor cursor;
-	tree.locate(0,cursor);
-	for(int i=0;i<10000;i++)
-	{
-		tree.readForward(cursor, kt, ri);
-		cout<<"KeyType:"<<kt<<"    Record.Pid:"<<ri.pid<<"    Record.Sid:"<<ri.sid<<endl;
-	}*/
-
-	int minkey = btreeindex.getMinimumKey();
-	int maxkey = btreeindex.getMaximumKey();
-
+	KeyType minkey = btreeindex.getMinimumKey();
+	KeyType maxkey = btreeindex.getMaximumKey();
+	cout<<"minKey: "<<minkey <<"	maxKey:"<<maxkey<<endl;
 	btreeindex.close();
-	system("pause");
 }
 
 void GenerateBPlusTree(int argc, char* argv[])
